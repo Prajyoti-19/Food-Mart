@@ -816,6 +816,42 @@ function removeactive(index){
     }
   }
 
+  // Disable F12 key
+document.addEventListener('keydown', function (e) {
+    // Disable F12
+    if (e.key === 'F12' || e.keyCode === 123) {
+        e.preventDefault();
+        alert('Access to developer tools is disabled.');
+    }
+
+    // Disable Ctrl + Shift + I (DevTools)
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'I') {
+        e.preventDefault();
+        alert('Access to developer tools is disabled.');
+    }
+
+    // Disable Ctrl + Shift + J (Console)
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'J') {
+        e.preventDefault();
+        alert('Access to developer tools is disabled.');
+    }
+});
+
+// Disable right-click context menu
+document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+    alert('Access to developer tools is disabled.');
+});
+
+// Disable opening DevTools via key combos like Ctrl + Shift + I
+document.addEventListener('keydown', function (e) {
+    // Prevent opening Developer Tools on Ctrl + Shift + I or Ctrl + Shift + J
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'J')) {
+        e.preventDefault();
+        alert('Access to developer tools is disabled.');
+    }
+});
+   
 </script>
 </body>
 </html>
