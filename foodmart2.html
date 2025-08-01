@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <title>Food Mart</title>
+    <style>
+        #demo14 , #demo15, #demo16, #demo23{
+            color: red;
+        }
+        #demo22{
+            height: 200 px;
+            color: rgb(13, 61, 11);
+            width: 500px;
+            border: 1px solid black;
+            background-color: rgb(211, 183, 183);
+            /* margin-left: 300px;
+            margin-top: 50px; */
+        }
+        #demo24{
+            display: none;
+        }
+        #demo19{
+            color: rgb(41, 39, 39);
+        }
+      #displayimage img {
+        width: 200px;
+        height: 100%;
+        object-fit: cover;
+        overflow: hidden;
+        border: 1px solid #6d6868;
+      }
+      #demo24{
+        display: none;
+        
+      }
+      .wrapper{
+        width: 100%;
+        height: 100%;
+        float: left;
+      }
+      .blockleft{
+        width: 50%;
+        float: left;
+      }
+      .blockright{
+        width: 50%;
+        float: left;
+        margin-top: 50px;
+      }
+      #demo222{
+            height: 300px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+<form action="#" id="foodForm">
+<h1>Food Market</h1>
+<h4 id="demo23">Pick up any Variety of Food</h4>
+    <input type="radio" id="fruits" name="shop" value="fruits" onchange="sec1('fruits')">fruits
+    <select id="fruityy" disabled required>
+        <option value="" name="nullFruitname" id="nullFruitname" selected disabled required>Please Select Items</option>
+        <option value="Banana" data-price="30">Banana for price 30rs</option >
+        <option value="Mango" id="mango" data-price="40">Mangoes for price 40rs</option>
+        <option value="Orange" data-price="50">Oranges for price 50rs</option>
+    </select>
+    <select id="fruits_qty" disabled required>
+        <option value="" name="nullyfruitqty" id="nullyfruitqty" selected disabled required>Please Select Quantity</option>
+        <option value="0.5" >1/2kg</option>
+        <option value="1" >1kg</option>
+        <option value="2" >2kg</option>
+    </select>
+
+    <button type="button" onclick="fruit_add()" id="sec1212" disabled>Add</button>
+    <span id="demo14"></span><br><br>
+
+
+
+<input type="radio" id="vegetable" name="shop" value="vegetable" onchange="sec1('vegetable')">vegetable
+<select id="vegetablee" disabled required>
+    <option value="" id="nullvegetablename" selected disabled required>Please Select Items</option>
+    <option value="tomato" data-price="35">Tomato for price 35rs</option>
+    <option value="potato" data-price="45">Potato for price 45rs</option>
+    <option value="onion" data-price="55">Onion for price 55rs</option>
+</select>
+<select id="vegetable_qty" disabled required>
+    <option value="" id="nullvegetableqty" selected disabled required >Please Select Quantity</option>
+    <option value="0.5" >1/2kg</option>
+    <option value="1" >1kg</option>
+    <option value="2" >2kg</option>
+</select>
+
+<button type="button" onclick="vegetable_add()" id="sec1221" disabled>Add</button>
+<span id="demo15"></span><br><br>
+
+<input type="radio" id="non_veg" name="shop" value="non_veg" onchange="sec1('non_veg')">non_veg
+<select id="non_vegg" disabled required>
+    <option value="" id="nullnonvegname" selected disabled required>Please Select Items</option>
+    <option value="fish" data-price="60">fish for price 60rs</option>
+    <option value="chicken" data-price="80">Chicken for price 80rs</option>
+    <option value="mutton" data-price="100">Mutton for price 100rs</option>
+</select>
+<select id="non_veg_qty"  disabled required>
+    <option value="" id="nullnonvegqty" selected disabled required>Please Select Quantity</option>
+    <option value="0.5" >1/2kg</option>
+    <option value="1" >1kg</option>
+    <option value="2" >2kg</option>
+</select>
+<button type="button" onclick="non_veg_add()" id="sec1224" disabled>Add</button>
+<span id="demo16"></span><br>
+
+<div class="wrapper">
+    <div class="blockleft">
+        
+<p id="demo19"></p>
+<p id="demo1"></p>
+<p id="demo2"></p>
+<p id="demo3"></p>
+<p id="demo4"></p>
+<p id="demo5"></p>
+<p id="demo6"></p>
+<p id="demo7"></p>
+<p id="demo11"></p>
+<p id="demo12"></p>
+<p id="demo13"></p>
+
+<h5><span id="fruit_price"></span></h5>
+<h5><span id="vegetable_price"></span></h5>
+<h5><span id="non_veg_price"></span></h5>
+<p id="demo25"></p>
+<h4>Sub Total: <span id="tot">0</span></h4>
+<button type="button" onclick="food_submit()" id="submitBtn" disabled>Submit</button>
+<button type="button" onclick="allcancel()" >Reset</button>
+<span id="m1"></span>
+
+<h5><span id="demo8"></span></h5>
+<p id="demo21" onmouseover="bigtxt()" onmouseout="normaltxt()">Show Discount Details (Click me)</p>   <!-- onmouseover="bigtxt()" onmouseout="normaltxt()" -->
+<div id="displayleft"><span id="demo22"></span></div>
+<h5>GST is 18%  <span id="demo9"></span></h5>
+<h3><span id="demo10"></span></h3>
+<span id="d"></span>
+<p id="demo222"></p>
+    </div>
+    <div class="blockright">
+        <div id="displayimage">
+            <img id="demo24" src="" height="200px" width="200px" alt="imagedisplyyy">
+        </div>
+    </div>
+</div>
+</form>
+<script>
+window.alert("Select any Variety of Food");
+let total = 0;
+let fruittotal = 0;
+let vegetabletotal = 0;
+let non_vegtotal
+let k = 0;
+let l = 0;
+let gst1 = 0;
+let gst = 0;
+let alltotal = 0;
+let txt = 0;
+let fruitremove = 0;
+const display_fruit_item = [];
+let a = 0;
+let b = 0;
+let c = 0;
+let d = 0;
+let f = 0;
+demo22.style.display = "none";
+function allcancel() {
+  if (confirm("Are you sure you want to reset?")){
+    window.location.reload();
+  }
+}
+// window.onload = function() {
+//   window.innerHeight = 3000;
+// };
+
+    function sec1(shop){
+            if (shop === 'fruits'){
+                document.getElementById("fruityy").disabled = false;
+                document.getElementById("fruits_qty").disabled = false;
+                document.getElementById("sec1212").disabled = false;
+                document.getElementById("vegetablee").disabled = true;
+                document.getElementById("vegetable_qty").disabled = true;
+                document.getElementById("sec1221").disabled = true;
+                document.getElementById("non_vegg").disabled = true;
+                document.getElementById("non_veg_qty").disabled = true;
+                document.getElementById("sec1224").disabled = true;
+                var spanHide14 = document.getElementById("demo14");
+                var spanHide15 = document.getElementById("demo15");
+                var spanHide16 = document.getElementById("demo16");
+                if (spanHide15, spanHide16, spanHide14) {
+                    spanHide14.style.display = "block";
+                    spanHide15.style.display = "none";
+                    spanHide16.style.display = "none";
+                }
+            }
+            else if (shop === 'vegetable'){
+                document.getElementById("fruityy").disabled = true;
+                document.getElementById("fruits_qty").disabled = true;
+                document.getElementById("sec1212").disabled = true;
+                document.getElementById("vegetablee").disabled = false;
+                document.getElementById("vegetable_qty").disabled = false;
+                document.getElementById("sec1221").disabled = false;
+                document.getElementById("non_vegg").disabled = true;
+                document.getElementById("non_veg_qty").disabled = true;
+                document.getElementById("sec1224").disabled = true;
+                var spanHide14 = document.getElementById("demo14");
+                var spanHide15 = document.getElementById("demo15");
+                var spanHide16 = document.getElementById("demo16");
+                if (spanHide15, spanHide16, spanHide14) {
+                    spanHide14.style.display = "none";
+                    spanHide15.style.display = "block";
+                    spanHide16.style.display = "none";
+                }
+            }
+            else{   
+                document.getElementById("fruityy").disabled = true;
+                document.getElementById("fruits_qty").disabled = true;
+                document.getElementById("sec1212").disabled = true;
+                document.getElementById("vegetablee").disabled = true;
+                document.getElementById("vegetable_qty").disabled = true;
+                document.getElementById("sec1221").disabled = true;
+                document.getElementById("non_vegg").disabled = false;
+                document.getElementById("non_veg_qty").disabled = false;
+                document.getElementById("sec1224").disabled = false;
+                var spanHide14 = document.getElementById("demo14");
+                var spanHide15 = document.getElementById("demo15");
+                var spanHide16 = document.getElementById("demo16");
+                if (spanHide15, spanHide16, spanHide14) {
+                    spanHide14.style.display = "none";
+                    spanHide15.style.display = "none";
+                    spanHide16.style.display = "block";
+
+                }
+            }
+        }
+        function removeitem(index) {
+            const removedItem = display_fruit_item[index];
+            if (confirm("Do you want to remove " + removedItem.name)){
+            total -= removedItem.price;
+            display_fruit_item.splice(index, 1);
+            document.getElementById("tot").innerHTML =  total;
+            displayItemsInCart();
+            updateTotal();
+            const img = document.getElementById("demo24");
+            imagedisplaynone(removedItem.name, img);
+        }else{
+            // document.getElementById("demo25").innerHTML = "You have not Removed " + removedItem.name;
+            console.log("cancel");
+        }
+    }
+        function imagedisplaynone(itemname, imgnone){
+            if (itemname === "Mango"){
+                imgnone.src = "mangoimg.jpeg";
+                imgnone.style.display = "none";
+            }else if(itemname === "Banana"){
+                imgnone.src = "bananaimg.jpeg";
+                imgnone.style.display = "none";
+            }else if(itemname === "Orange"){
+                imgnone.src = "orangeimg.jpeg";
+                imgnone.style.display = "none";
+            }else if(itemname === "tomato"){
+                imgnone.src = "tomatoimg.jpg";
+                imgnone.style.display = "none";
+            }else if(itemname === "potato"){
+                imgnone.src = "potatoimg.jpg";
+                imgnone.style.display = "none";
+            }else if(itemname === "onion"){
+                imgnone.src = "onionimg.jpeg";
+                imgnone.style.display = "none";
+            }else if(itemname === "fish"){
+                imgnone.src = "fishimg.jpg";
+                imgnone.style.display = "none";
+            }else if(itemname === "chicken"){
+                imgnone.src = "chickenimg.jpeg";
+                imgnone.style.display = "none";
+            }else if(itemname === "mutton"){
+                imgnone.src = "muttonimg.jpg";
+                imgnone.style.display = "none";
+            }
+        }
+
+        let xmsg = "";
+    function disableCheckboxes() {
+  const form = document.getElementById("foodForm");
+  const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+  checkboxes.forEach((checkbox) => {
+    checkbox.disabled = true;
+  });
+}
+
+function updateTotal(){
+    let k = 0;
+    let l = 0;
+    
+
+    if (total > 0 && total < 200){
+            k = total * 0.05;
+            l = total - k;
+            // document.getElementById("demo8").innerHTML = "Discount got  Removing Price: " + k.toFixed(1) + "<br> Price with discount: " + l.toFixed(1);
+            // document.getElementById("demo21").innerHTML = "Show Discount Details (Click me)";
+            xmsg = " <b>Discount Chart</b> <br> <b>(<b>(for 200 got 5% Discount)</b> <br> Total Discount got " + k.toFixed(1) + "<br> <br>Your Total price with discount is " + l.toFixed(1);
+        }
+        else if(total > 201 && total < 500){
+            c = total - 200;
+            k = c * 0.07;
+            d = k + 10;
+            l = total - d;
+            xmsg = "<b>Discount Chart</b>  <br><br> <b>(for 200 got 5% Discount got  10rs)</b> and <br> Then Remain " + c.toFixed(1) + " <b>(for 500 got 7% Discount)</b> So doing 7% of its Discount got  " + k.toFixed(1) + "<br>Total Discount got  " + d.toFixed(1) + "<br> Your Total price with discount is " + l.toFixed(1);
+                // document.getElementById("demo8").innerHTML = "Discount got  Removing Price: " + d.toFixed(1) + "<br> Price with discount: " +l.toFixed(1);
+            }
+        else if(total > 501 && total < 1000){
+            c = total - 200;
+            if (c > 200 && c < 500){
+                k = c * 0.07;
+                f = k + 10;
+                l = total - f;
+                // document.getElementById("demo21").innerHTML = "Show Discount Details (Click me)";
+                xmsg = "<b>Discount Chart</b>  <br><br> <b>(for 200 got 5% Discount got  10rs)</b> and <br> Then Remain " + c.toFixed(1) + " <b>(for 500 got 7% Discount)</b> So doing 7% of its Discount got  " + k.toFixed(1) + "<br>Total Discount got  " + f.toFixed(1) + "<br> Your Total price with discount is " + l.toFixed(1);
+                // document.getElementById("demo8").innerHTML = "Discount got  Removing Price: " + f.toFixed(1) + "<br> Price with discount: " +l.toFixed(1);
+            }else if(c > 501 && c < 1000){
+                d = c - 500;
+                k = d * 0.1;
+                f = k + 45;
+                l = total - f;
+                    // document.getElementById("demo21").innerHTML = "Show Discount Details (Click me)";
+                    xmsg = "<b>Discount Chart</b>  <br><br> <b>(for 200 got 5% Discount got  10rs)</b> and <br> Then Remain " + c.toFixed(1) + " <b>(for 500 got 7% Discount got  35rs)</b> Then again Remain " + d.toFixed(1) + " So doing 10% of its Discount got  " + k.toFixed(1) + "<br>Total Discount got  " + f.toFixed(1) + "<br> Your Total price with discount is " + l.toFixed(1);
+                    // document.getElementById("demo8").innerHTML = "Discount got  Removing Price: " + f.toFixed(1) + "<br> Price with discount: " +l.toFixed(1);
+                }
+            }
+        else{
+            c = total - 700;
+            k = c * 0.1;
+            d = k + 45;
+            l = total - d;
+                // document.getElementById("demo21").innerHTML = "Show Discount Details (Click me)";
+                xmsg = "<b>Discount Chart</b>  <br><br> <b>(for 200 got 5% Discount got  10rs)</b> and <br> <b>(for 500 got 7% Discount got  35rs)</b> Then Remain " + c.toFixed(1) + "<br><b>(for 1000 got 10% Discount)</b> So doing 10% of its Discount got  " + k.toFixed(1) + "<br>Total Discount got  " + d.toFixed(1) + "<br> Your Total price with discount is " + l.toFixed(1);
+                // document.getElementById("demo8").innerHTML = "Discount got  Removing Price: " + d.toFixed(1) + "<br> Price with discount: " +l.toFixed(1);
+            
+            document.getElementById("tot").innerHTML = total;
+        }
+}
+window.scrollTo({
+  top: 5000,
+  behavior: 'smooth'
+    });
+function bigtxt(){
+    const demo22 = document.getElementById("demo22");
+    demo22.innerHTML = xmsg;
+    demo22.style.display = "block";
+}
+
+function normaltxt(){
+    demo22.style.display = "none";
+}
+function displayItemsInCart() {
+    var table = "<table border='2'>";
+    table += "<tr><th>Select</th><th>Item</th><th>Quantity</th><th>Cost</th><th>Price</th><th>Action</th></tr>";
+
+    display_fruit_item.forEach((item, index) => {
+        table += "<tr>";
+        table += "<td><input type='checkbox' id='checkboxactive' data-index='" + index + "' onchange='removeactive(" + index + ")'></td>";
+        table += "<td><a onclick='showimage(\"" + item.name + "\")'>" + item.name + "</a></td>";
+        table += "<td>" + item.quantity + "kg</td>";
+        table += "<td>" + item.cost + "</td>"
+        table += "<td>" + item.price + "</td>";
+        table += "<td><button type = 'button' onclick='removeitem(" + index + ")' data-index='" + index + "' id = 'removebtn' disabled>Remove</button></td>";
+        table += "</tr> ";
+
+    });
+    var demo11 = document.getElementById("demo11");
+    demo11.innerHTML = table;
+}
+function removeactive(index){
+
+    const checkbox = document.querySelector('input[type="checkbox"][data-index="' + index + '"]');
+    
+    if (checkbox.checked) {
+        const selectedItem = display_fruit_item[index];
+        const removeButton = document.querySelector('button[data-index="' + index + '"]');
+        removeButton.disabled = false;
+    } else {
+        const removeButton = document.querySelector('button[data-index="' + index + '"]');
+        removeButton.disabled = true;
+    }}
+
+    function showimage(item){
+        demo24.style.display = "block";
+        const img = document.getElementById("demo24");
+
+        if (item === "Mango"){
+            img.src = "mangoimg.jpeg";
+        }else if(item === "Banana"){
+            img.src = "bananaimg.jpeg";
+        }else if(item === "Orange"){
+            img.src = "orangeimg.jpeg";
+        }else if(item === "tomato"){
+            img.src = "tomatoimg.jpg";
+        }else if(item === "potato"){
+            img.src = "potatoimg.jpg";
+        }else if(item === "onion"){
+            img.src = "onionimg.jpeg";
+        }else if(item === "fish"){
+            img.src = "fishimg.jpg";
+        }else if(item === "chicken"){
+            img.src = "chickenimg.jpeg";
+        }else if(item === "mutton"){
+            img.src = "muttonimg.jpg";
+        }
+    }
+
+    function fruit_add(){
+        document.getElementById("demo19").innerHTML = "Click an Items to See an Image";
+        document.getElementById("submitBtn").disabled = false;
+        const food_item_name = document.getElementById("fruityy").value;
+        const food_item_qty = document.getElementById("fruits_qty").value;
+        const food_item_namee = document.getElementById("fruityy");
+        const food_item_qtyy = document.getElementById("fruits_qty");
+
+        if (!food_item_namee.value || !food_item_qtyy.value) {
+            if (!food_item_namee.value) {
+                food_item_namee.setCustomValidity('Please select an item');
+                food_item_namee.reportValidity();
+                return;
+            } else if (!food_item_qtyy.value) {
+                food_item_qtyy.setCustomValidity('Please select a quantity');
+                food_item_qtyy.reportValidity();
+                return;
+            } else {
+                food_item_namee.setCustomValidity('');
+                food_item_qtyy.setCustomValidity('');
+                return;
+            }
+        }
+        var food_item_price = document.getElementById("fruityy").options[document.getElementById("fruityy").selectedIndex].getAttribute("data-price");
+        var fruit_price = parseFloat(document.getElementById("fruit_price").innerText) || 0;
+        fruit_price += parseFloat(food_item_qty) * parseFloat(food_item_price);
+        total += parseFloat(food_item_qty) * parseFloat(food_item_price);
+        document.getElementById("tot").innerHTML = total;
+
+            var fruit_namevar = document.getElementById("fruityy");
+            var fruit_qtyvar = document.getElementById("fruits_qty");
+            var fruit_name_value = fruit_namevar.options[fruit_namevar.selectedIndex].value;
+            var fruit_qty_value = parseFloat(fruit_qtyvar.options[fruit_qtyvar.selectedIndex].value);
+            var fruit_price_value = parseFloat(fruit_price);
+            
+            let found = false;
+            display_fruit_item.forEach(item => {
+                if (item.name === fruit_name_value){
+                    item.quantity += fruit_qty_value;
+                    item.price = item.quantity * food_item_price;
+                    item.cost = food_item_price;
+                    found = true;
+                }
+            });
+            if (!found) {
+                display_fruit_item.push({ name: fruit_name_value, quantity: fruit_qty_value, price: fruit_price_value, cost: food_item_price });
+            }
+
+        var demo11 = document.getElementById("demo11");
+        demo11.innerHTML = "<b>Selected Foods</b><br><br>";
+
+        display_fruit_item.forEach((item, index) => {
+            demo11.innerHTML += "<input type=checkbox id='checkboxactive' onchange='removeactive(" + index + ")' <b>Item:</b>  " + item.name + " <b>Quantity is:</b> " + item.quantity + "kg <b>Price per Kg </b> " + item.cost + " Item Cost " +item.price+ "  <button type = 'button' id = 'removebtn' onclick = removeitem(" + index + ")>Remove</button>";
+        });
+        displayItemsInCart();
+
+        if (total > 0 && total < 200){
+            k = total * 0.05;
+            l = total - k;
+            // document.getElementById("demo8").innerHTML = "Discount got  Removing Price: " + k.toFixed(1) + "<br> Price with discount: " + l.toFixed(1);
+            // document.getElementById("demo21").innerHTML = "Show Discount Details (Click me)";
+            xmsg = " <b>Discount Chart</b> <br> <b>(<b>(for 200 got 5% Discount)</b> <br> Total Discount got " + k.toFixed(1) + "<br> <br>Your Total price with discount is " + l.toFixed(1);
+        }
+        else if(total > 201 && total < 500){
+            c = total - 200;
+            k = c * 0.07;
+            d = k + 10;
+            l = total - d;
+            xmsg = "<b>Discount Chart</b>  <br><br> <b>(for 200 got 5% Discount got  10rs)</b> and <br> Then Remain " + c.toFixed(1) + " <b>(for 500 got 7% Discount)</b> So doing 7% of its Discount got  " + k.toFixed(1) + "<br>Total Discount got  " + d.toFixed(1) + "<br> Your Total price with discount is " + l.toFixed(1);
+                // document.getElementById("demo8").innerHTML = "Discount got  Removing Price: " + d.toFixed(1) + "<br> Price with discount: " +l.toFixed(1);
+            }
+        else if(total > 501 && total < 1000){
+            c = total - 200;
+            if (c > 200 && c < 500){
+                k = c * 0.07;
+                f = k + 10;
+                l = total - f;
+                // document.getElementById("demo21").innerHTML = "Show Discount Details (Click me)";
+                xmsg = "<b>Discount Chart</b>  <br><br> <b>(for 200 got 5% Discount got  10rs)</b> and <br> Then Remain " + c.toFixed(1) + " <b>(for 500 got 7% Discount)</b> So doing 7% of its Discount got  " + k.toFixed(1) + "<br>Total Discount got  " + f.toFixed(1) + "<br> Your Total price with discount is " + l.toFixed(1);
+                // document.getElementById("demo8").innerHTML = "Discount got  Removing Price: " + f.toFixed(1) + "<br> Price with discount: " +l.toFixed(1);
+            }else if(c > 501 && c < 1000){
+                d = c - 500;
+                k = d * 0.1;
+                f = k + 45;
+                l = total - f;
+                    // document.getElementById("demo21").innerHTML = "Show Discount Details (Click me)";
+                    xmsg = "<b>Discount Chart</b>  <br><br> <b>(for 200 got 5% Discount got  10rs)</b> and <br> Then Remain " + c.toFixed(1) + " <b>(for 500 got 7% Discount got  35rs)</b> Then again Remain " + d.toFixed(1) + " So doing 10% of its Discount got  " + k.toFixed(1) + "<br>Total Discount got  " + f.toFixed(1) + "<br> Your Total price with discount is " + l.toFixed(1);
+                    // document.getElementById("demo8").innerHTML = "Discount got  Removing Price: " + f.toFixed(1) + "<br> Price with discount: " +l.toFixed(1);
+                }
+            }
+        else{
+            c = total - 700;
+            k = c * 0.1;
+            d = k + 45;
+            l = total - d;
+                // document.getElementById("demo21").innerHTML = "Show Discount Details (Click me)";
+                xmsg = "<b>Discount Chart</b>  <br><br> <b>(for 200 got 5% Discount got  10rs)</b> and <br> <b>(for 500 got 7% Discount got  35rs)</b> Then Remain " + c.toFixed(1) + "<br><b>(for 1000 got 10% Discount)</b> So doing 10% of its Discount got  " + k.toFixed(1) + "<br>Total Discount got  " + d.toFixed(1) + "<br> Your Total price with discount is " + l.toFixed(1);
+                // document.getElementById("demo8").innerHTML = "Discount got  Removing Price: " + d.toFixed(1) + "<br> Price with discount: " +l.toFixed(1);
+            
+            document.getElementById("tot").innerHTML = total;
+        }
+    }
+    function vegetable_add(){
+        document.getElementById("demo19").innerHTML = "Click an Items to See an Image";
+        document.getElementById("submitBtn").disabled = false;
+        var food_item_name = document.getElementById("vegetablee").value;
+        
+        var food_item_qty = document.getElementById("vegetable_qty").value;
+        const food_item_namee = document.getElementById("vegetablee");
+        const food_item_qtyy = document.getElementById("vegetable_qty");
+        if (!food_item_namee.value || !food_item_qtyy.value) {
+            if (!food_item_namee.value) {
+                food_item_namee.setCustomValidity('Please select an item');
+                food_item_namee.reportValidity();
+                return;
+            } else if (!food_item_qtyy.value) {
+                food_item_qtyy.setCustomValidity('Please select a quantity');
+                food_item_qtyy.reportValidity();
+                return;
+            } else {
+                food_item_namee.setCustomValidity('');
+                food_item_qtyy.setCustomValidity('');
+                return;
+            }
+        }
+        if (food_item_name !== "null" && food_item_qty !== "0"){
+            var food_item_price = document.getElementById("vegetablee").options[document.getElementById("vegetablee").selectedIndex].getAttribute("data-price");
+        }
+        else{
+            food_item_price = 0;
+            food_item_qty = 0;
+        }
+        var vegetable_price = parseFloat(document.getElementById("vegetable_price").innerText) || 0;
+  
+        vegetable_price += parseFloat(food_item_qty) * parseFloat(food_item_price);
+        total += parseFloat(food_item_qty) * parseFloat(food_item_price);
+
+
+            var fruit_namevar = document.getElementById("vegetablee");
+            var fruit_qtyvar = document.getElementById("vegetable_qty");
+            var fruit_name_value = fruit_namevar.options[fruit_namevar.selectedIndex].value;
+            var fruit_qty_value = parseFloat(fruit_qtyvar.options[fruit_qtyvar.selectedIndex].value);
+            var fruit_price_value = parseFloat(vegetable_price);
+
+
+            document.getElementById("nullvegetablename").disabled = true;
+            document.getElementById("nullvegetableqty").disabled = true;
+            
+            let found = false;
+            display_fruit_item.forEach(item => {
+                if (item.name === fruit_name_value){
+                    item.quantity += fruit_qty_value;
+                    item.price = item.quantity * food_item_price;
+                    item.cost = food_item_price;
+                    found = true;
+                }
+            });
+            if (!found) {
+                display_fruit_item.push({ name: fruit_name_value, quantity: fruit_qty_value, cost: food_item_price, price: fruit_price_value });
+            }
+        
+
+        var demo11 = document.getElementById("demo11");
+        demo11.innerHTML = "<b>Selected Foods</b><br><br>";
+
+        display_fruit_item.forEach((item, index) => {
+            demo11.innerHTML += "<b>Item:</b> " + item.name + " <b>Quantity is:</b> " + item.quantity + "kg <b>Price per Kg </b> " + item.cost + " Item Cost " +item.price+ "  <button type = 'button' id = 'removebtn' onclick = removeitem(" + index + ")>Remove</button>";
+        });
+        displayItemsInCart();
+        document.getElementById("tot").innerHTML =  total;
+
+        if (total > 0 && total < 200){
+            k = total * 0.05;
+            l = total - k;
+            // document.getElementById("demo8").innerHTML = "Discount got  Removing Price: " + k.toFixed(1) + "<br> Price with discount: " + l.toFixed(1);
+            // document.getElementById("demo21").innerHTML = "Show Discount Details (Click me)";
+            xmsg = " <b>Discount Chart</b> <br> <b>(<b>(for 200 got 5% Discount)</b> <br> Total Discount got " + k.toFixed(1) + "<br> <br>Your Total price with discount is " + l.toFixed(1);
+        }
+        else if(total > 201 && total < 500){
+            c = total - 200;
+            k = c * 0.07;
+            d = k + 10;
+            l = total - d;
+            xmsg = "<b>Discount Chart</b>  <br><br> <b>(for 200 got 5% Discount got  10rs)</b> and <br> Then Remain " + c.toFixed(1) + " <b>(for 500 got 7% Discount)</b> So doing 7% of its Discount got  " + k.toFixed(1) + "<br>Total Discount got  " + d.toFixed(1) + "<br> Your Total price with discount is " + l.toFixed(1);
+                // document.getElementById("demo8").innerHTML = "Discount got  Removing Price: " + d.toFixed(1) + "<br> Price with discount: " +l.toFixed(1);
+            }
+        else if(total > 501 && total < 1000){
+            c = total - 200;
+            if (c > 200 && c < 500){
+                k = c * 0.07;
+                f = k + 10;
+                l = total - f;
+                // document.getElementById("demo21").innerHTML = "Show Discount Details (Click me)";
+                xmsg = "<b>Discount Chart</b>  <br><br> <b>(for 200 got 5% Discount got  10rs)</b> and <br> Then Remain " + c.toFixed(1) + " <b>(for 500 got 7% Discount)</b> So doing 7% of its Discount got  " + k.toFixed(1) + "<br>Total Discount got  " + f.toFixed(1) + "<br> Your Total price with discount is " + l.toFixed(1);
+                // document.getElementById("demo8").innerHTML = "Discount got  Removing Price: " + f.toFixed(1) + "<br> Price with discount: " +l.toFixed(1);
+            }else if(c > 501 && c < 1000){
+                d = c - 500;
+                k = d * 0.1;
+                f = k + 45;
+                l = total - f;
+                    // document.getElementById("demo21").innerHTML = "Show Discount Details (Click me)";
+                    xmsg = "<b>Discount Chart</b>  <br><br> <b>(for 200 got 5% Discount got  10rs)</b> and <br> Then Remain " + c.toFixed(1) + " <b>(for 500 got 7% Discount got  35rs)</b> Then again Remain " + d.toFixed(1) + " So doing 10% of its Discount got  " + k.toFixed(1) + "<br>Total Discount got  " + f.toFixed(1) + "<br> Your Total price with discount is " + l.toFixed(1);
+                    // document.getElementById("demo8").innerHTML = "Discount got  Removing Price: " + f.toFixed(1) + "<br> Price with discount: " +l.toFixed(1);
+                }
+            }
+        else{
+            c = total - 700;
+            k = c * 0.1;
+            d = k + 45;
+            l = total - d;
+                // document.getElementById("demo21").innerHTML = "Show Discount Details (Click me)";
+                xmsg = "<b>Discount Chart</b>  <br><br> <b>(for 200 got 5% Discount got  10rs)</b> and <br> <b>(for 500 got 7% Discount got  35rs)</b> Then Remain " + c.toFixed(1) + "<br><b>(for 1000 got 10% Discount)</b> So doing 10% of its Discount got  " + k.toFixed(1) + "<br>Total Discount got  " + d.toFixed(1) + "<br> Your Total price with discount is " + l.toFixed(1);
+                // document.getElementById("demo8").innerHTML = "Discount got  Removing Price: " + d.toFixed(1) + "<br> Price with discount: " +l.toFixed(1);
+            
+            document.getElementById("tot").innerHTML = total;
+        }
+    }
+            
+    function non_veg_add(){
+        document.getElementById("demo19").innerHTML = "Click an Items to See an Image";
+        document.getElementById("submitBtn").disabled = false;
+        var food_item_name = document.getElementById("non_vegg").value;
+        //document.getElementById("demo1").innerHTML = food_item_name + " for price is ";
+        
+        var food_item_qty = parseFloat(document.getElementById("non_veg_qty").value);
+        const food_item_namee = document.getElementById("non_vegg");
+        const food_item_qtyy = document.getElementById("non_veg_qty");
+
+        if (!food_item_namee.value || !food_item_qtyy.value) {
+            if (!food_item_namee.value) {
+                food_item_namee.setCustomValidity('Please select an item');
+                food_item_namee.reportValidity();
+                return;
+            } else if (!food_item_qtyy.value) {
+                food_item_qtyy.setCustomValidity('Please select a quantity');
+                food_item_qtyy.reportValidity();
+                return;
+            } else {
+                food_item_namee.setCustomValidity('');
+                food_item_qtyy.setCustomValidity('');
+                return;
+            }
+        }
+        
+        
+        var food_item_price = document.getElementById("non_vegg").options[document.getElementById("non_vegg").selectedIndex].getAttribute("data-price");
+
+        var non_veg_price = parseFloat(document.getElementById("non_veg_price").innerText) || 0;
+  
+        non_veg_price += parseFloat(food_item_qty) * parseFloat(food_item_price);
+        total += parseFloat(food_item_qty) * parseFloat(food_item_price);
+
+            var fruit_namevar = document.getElementById("non_vegg");
+            var fruit_qtyvar = document.getElementById("non_veg_qty");
+            var fruit_name_value = fruit_namevar.options[fruit_namevar.selectedIndex].value;
+            var fruit_qty_value = parseFloat(fruit_qtyvar.options[fruit_qtyvar.selectedIndex].value);
+            var fruit_price_value = parseFloat(non_veg_price);
+
+
+            document.getElementById("nullnonvegname").disabled = true;
+            document.getElementById("nullnonvegqty").disabled = true;
+            let found = false;
+            display_fruit_item.forEach(item => {
+                if (item.name === fruit_name_value){
+                    item.quantity += fruit_qty_value;
+                    item.price = item.quantity * food_item_price;
+                    item.cost = food_item_price;
+                    found = true;
+                }
+            });
+            if (!found) {
+                display_fruit_item.push({ name: fruit_name_value, quantity: fruit_qty_value, cost: food_item_price, price: fruit_price_value });
+            }
+        var demo11 = document.getElementById("demo11");
+        demo11.innerHTML = "<b>Selected Foods</b><br><br>";
+
+        display_fruit_item.forEach((item, index) => {
+            demo11.innerHTML += "<b>Item:</b> " + item.name + " <b>Quantity is:</b> " + item.quantity + "kg <b>Price per Kg </b> " + item.cost + " Item Cost " +item.price+ "  <button type = 'button' id = 'removebtn' onclick = removeitem(" + index + ")>Remove</button>";
+        });
+        displayItemsInCart();
+        document.getElementById("tot").innerHTML =  total;
+    
+
+        if (total > 0 && total < 200){
+            k = total * 0.05;
+            l = total - k;
+            // = "Discount got  Removing Price: " + k.toFixed(1) + "<br> Price with discount: " + l.toFixed(1);
+            // document.getElementById("demo21").innerHTML = "Show Discount Details (Click me)";
+            xmsg = " <b>Discount Chart</b> <br> <b>(<b>(for 200 got 5% Discount)</b> <br> Total Discount got " + k.toFixed(1) + "<br> <br>Your Total price with discount is " + l.toFixed(1);
+        }
+        else if(total > 201 && total < 500){
+            c = total - 200;
+            k = c * 0.07;
+            d = k + 10;
+            l = total - d;
+            xmsg = "<b>Discount Chart</b>  <br><br> <b>(for 200 got 5% Discount got  10rs)</b> and <br> Then Remain " + c.toFixed(1) + " <b>(for 500 got 7% Discount)</b> So doing 7% of its Discount got  " + k.toFixed(1) + "<br>Total Discount got  " + d.toFixed(1) + "<br> Your Total price with discount is " + l.toFixed(1);
+                // = "Discount got  Removing Price: " + d.toFixed(1) + "<br> Price with discount: " +l.toFixed(1);
+            }
+        else if(total > 501 && total < 1000){
+            c = total - 200;
+            if (c > 200 && c < 500){
+                k = c * 0.07;
+                f = k + 10;
+                l = total - f;
+                // document.getElementById("demo21").innerHTML = "Show Discount Details (Click me)";
+                xmsg = "<b>Discount Chart</b>  <br><br> <b>(for 200 got 5% Discount got  10rs)</b> and <br> Then Remain " + c.toFixed(1) + " <b>(for 500 got 7% Discount)</b> So doing 7% of its Discount got  " + k.toFixed(1) + "<br>Total Discount got  " + f.toFixed(1) + "<br> Your Total price with discount is " + l.toFixed(1);
+                // = "Discount got  Removing Price: " + f.toFixed(1) + "<br> Price with discount: " +l.toFixed(1);
+            }else if(c > 501 && c < 1000){
+                d = c - 500;
+                k = d * 0.1;
+                f = k + 45;
+                l = total - f;
+                    // document.getElementById("demo21").innerHTML = "Show Discount Details (Click me)";
+                    xmsg = "<b>Discount Chart</b>  <br><br> <b>(for 200 got 5% Discount got  10rs)</b> and <br> Then Remain " + c.toFixed(1) + " <b>(for 500 got 7% Discount got  35rs)</b> Then again Remain " + d.toFixed(1) + " So doing 10% of its Discount got  " + k.toFixed(1) + "<br>Total Discount got  " + f.toFixed(1) + "<br> Your Total price with discount is " + l.toFixed(1);
+                    // = "Discount got  Removing Price: " + f.toFixed(1) + "<br> Price with discount: " +l.toFixed(1);
+                }
+            }
+        else{
+            c = total - 700;
+            k = c * 0.1;
+            d = k + 45;
+            l = total - d;
+                // document.getElementById("demo21").innerHTML = "Show Discount Details (Click me)";
+                xmsg = "<b>Discount Chart</b>  <br><br> <b>(for 200 got 5% Discount got  10rs)</b> and <br> <b>(for 500 got 7% Discount got  35rs)</b> Then Remain " + c.toFixed(1) + "<br><b>(for 1000 got 10% Discount)</b> So doing 10% of its Discount got  " + k.toFixed(1) + "<br>Total Discount got  " + d.toFixed(1) + "<br> Your Total price with discount is " + l.toFixed(1);
+                // = "Discount got  Removing Price: " + d.toFixed(1) + "<br> Price with discount: " +l.toFixed(1);
+            
+            document.getElementById("tot").innerHTML = total;
+        }
+        }
+
+    function food_submit(){
+        if (total !== 0){
+        if (confirm("Are you sure you want to Submit All")){
+        document.getElementById("tot").innerHTML =  total;
+        
+        //Discounts
+        if (total > 0 && total < 200){
+            k = total * 0.05;
+            l = total - k;
+            document.getElementById("demo8").innerHTML = "Discount got  Removing Price: " + k.toFixed(1) + "<br> Price with discount: " + l.toFixed(1);
+            // document.getElementById("demo21").innerHTML = "Show Discount Details (Click me)";
+            xmsg = " <b>Discount Chart</b> <br> <b>(<b>(for 200 got 5% Discount)</b> <br> Total Discount got " + k.toFixed(1) + "<br> <br>Your Total price with discount is " + l.toFixed(1);
+        }
+        else if(total > 201 && total < 500){
+            c = total - 200;
+            k = c * 0.07;
+            d = k + 10;
+            l = total - d;
+            xmsg = "<b>Discount Chart</b>  <br><br> <b>(for 200 got 5% Discount got  10rs)</b> and <br> Then Remain " + c.toFixed(1) + " <b>(for 500 got 7% Discount)</b> So doing 7% of its Discount got  " + k.toFixed(1) + "<br>Total Discount got  " + d.toFixed(1) + "<br> Your Total price with discount is " + l.toFixed(1);
+                document.getElementById("demo8").innerHTML = "Discount got  Removing Price: " + d.toFixed(1) + "<br> Price with discount: " +l.toFixed(1);
+            }
+        else if(total > 501 && total < 1000){
+            c = total - 200;
+            if (c > 200 && c < 500){
+                k = c * 0.07;
+                f = k + 10;
+                l = total - f;
+                // document.getElementById("demo21").innerHTML = "Show Discount Details (Click me)";
+                xmsg = "<b>Discount Chart</b>  <br><br> <b>(for 200 got 5% Discount got  10rs)</b> and <br> Then Remain " + c.toFixed(1) + " <b>(for 500 got 7% Discount)</b> So doing 7% of its Discount got  " + k.toFixed(1) + "<br>Total Discount got  " + f.toFixed(1) + "<br> Your Total price with discount is " + l.toFixed(1);
+                document.getElementById("demo8").innerHTML = "Discount got  Removing Price: " + f.toFixed(1) + "<br> Price with discount: " +l.toFixed(1);
+            }else if(c > 501 && c < 1000){
+                d = c - 500;
+                k = d * 0.1;
+                f = k + 45;
+                l = total - f;
+                    // document.getElementById("demo21").innerHTML = "Show Discount Details (Click me)";
+                    xmsg = "<b>Discount Chart</b>  <br><br> <b>(for 200 got 5% Discount got  10rs)</b> and <br> Then Remain " + c.toFixed(1) + " <b>(for 500 got 7% Discount got  35rs)</b> Then again Remain " + d.toFixed(1) + " So doing 10% of its Discount got  " + k.toFixed(1) + "<br>Total Discount got  " + f.toFixed(1) + "<br> Your Total price with discount is " + l.toFixed(1);
+                    document.getElementById("demo8").innerHTML = "Discount got  Removing Price: " + f.toFixed(1) + "<br> Price with discount: " +l.toFixed(1);
+                }
+            }
+        else{
+            c = total - 700;
+            k = c * 0.1;
+            d = k + 45;
+            l = total - d;
+                // document.getElementById("demo21").innerHTML = "Show Discount Details (Click me)";
+                xmsg = "<b>Discount Chart</b>  <br><br> <b>(for 200 got 5% Discount got  10rs)</b> and <br> <b>(for 500 got 7% Discount got  35rs)</b> Then Remain " + c.toFixed(1) + "<br><b>(for 1000 got 10% Discount)</b> So doing 10% of its Discount got  " + k.toFixed(1) + "<br>Total Discount got  " + d.toFixed(1) + "<br> Your Total price with discount is " + l.toFixed(1);
+                document.getElementById("demo8").innerHTML = "Discount got  Removing Price: " + d.toFixed(1) + "<br> Price with discount: " +l.toFixed(1);
+            
+            document.getElementById("tot").innerHTML = total;
+        }
+        }
+        gst1 = l * (18/100);
+        document.getElementById("demo9").innerHTML = "Add Price: " + gst1.toFixed(1);
+
+        alltotal = gst1 + l;
+        document.getElementById("demo10").innerHTML = "All Total Price: " + alltotal.toFixed(1);
+        document.getElementById("submitBtn").disabled = true;
+        document.getElementById("fruityy").disabled = true;
+        document.getElementById("fruits_qty").disabled = true;
+        document.getElementById("sec1212").disabled = true;
+        document.getElementById("vegetablee").disabled = true;
+        document.getElementById("vegetable_qty").disabled = true;
+        document.getElementById("sec1221").disabled = true;
+        document.getElementById("non_vegg").disabled = true;
+        document.getElementById("non_veg_qty").disabled = true;
+        document.getElementById("sec1224").disabled = true;
+        document.getElementById("fruits").disabled = true;
+        document.getElementById("vegetable").disabled = true;
+        document.getElementById("non_veg").disabled = true;
+        document.getElementById("removebtn").disabled = true;
+        disableCheckboxes();
+    }
+  }
+
+</script>
+</body>
+</html>
